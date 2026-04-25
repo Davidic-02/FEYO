@@ -4,7 +4,7 @@ part 'encrypted_file.freezed.dart';
 part 'encrypted_file.g.dart';
 
 @freezed
-class EncryptedFile with _$EncryptedFile {
+abstract class EncryptedFile with _$EncryptedFile {
   const factory EncryptedFile({
     required String id,
     required String fileName,
