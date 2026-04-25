@@ -1,10 +1,14 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fyeo/presentation/screens/dashboard.dart';
+import 'package:fyeo/presentation/screens/encryption.dart';
+import 'package:fyeo/presentation/screens/recent_files.dart';
 import 'package:fyeo/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
+import 'package:fyeo/bloc/dashboard/dashboard_bloc.dart';
 
 class AppRouter {
   final DashboardBloc dashboardBloc;
@@ -13,50 +17,66 @@ class AppRouter {
 
   late final GoRouter router = GoRouter(
     initialLocation: '/dashboard',
-    // ── Router rebuilds whenever Bloc state changes ────────
-    refreshListenable: GoRouterBlocRefreshStream(dashboardBloc.stream),
+    refreshListenable: _BlocStream(dashboardBloc.stream),
     routes: [
       GoRoute(
         path: '/dashboard',
-        builder: (context, state) => const DashboardScreen(),
+        builder: (context, state) => BlocProvider.value(
+          value: dashboardBloc,
+          child: const DashboardScreen(),
+        ),
       ),
       GoRoute(
         path: '/encrypt',
-        builder: (context, state) {
-          // File comes from router extra, not from Bloc state
-          final file = state.extra as File;
-          return EncryptionScreen(file: file);
-        },
+        builder: (context, state) =>
+            EncryptionScreen(file: state.extra as File),
       ),
       GoRoute(
         path: '/recent-files',
         builder: (context, state) => const RecentFilesScreen(),
       ),
     ],
-    // ── Redirect logic — this is where routing decisions live ─
     redirect: (context, routerState) {
       final dashState = dashboardBloc.state;
 
-      // If there is a pending file to encrypt, redirect there
-      if (dashState.pendingRoute case EncryptRoute(:final file)) {
-        return null; // GoRouter will handle via extra below
+      // ── Read pendingRoute, navigate, then clear it ────────
+      switch (dashState.pendingRoute) {
+        case EncryptRoute(:final file):
+          // Tell Bloc the route was consumed BEFORE navigating
+          dashboardBloc.add(const DashboardEvent.routeConsumed());
+          // GoRouter handles the push — file goes as extra
+          // We return null here and use go() below
+          // because redirect can't pass extras
+          Future.microtask(() {
+            router.push('/encrypt', extra: file);
+          });
+          return null;
+
+        case RecentFilesRoute():
+          dashboardBloc.add(const DashboardEvent.routeConsumed());
+          return '/recent-files';
+
+        case NoRoute():
+          return null;
+
+        case DashboardRoute():
+          return '/dashboard'; // stay on current route
       }
     },
   );
 }
 
-// ── Makes GoRouter listen to any Bloc stream ───────────────────
-class GoRouterBlocRefreshStream extends ChangeNotifier {
-  GoRouterBlocRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.listen((_) => notifyListeners());
+// Bridges Bloc stream to ChangeNotifier so GoRouter can listen
+class _BlocStream extends ChangeNotifier {
+  _BlocStream(Stream stream) {
+    _sub = stream.listen((_) => notifyListeners());
   }
 
-  late final StreamSubscription<dynamic> _subscription;
+  late final StreamSubscription _sub;
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _sub.cancel();
     super.dispose();
   }
 }
