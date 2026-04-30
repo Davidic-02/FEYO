@@ -17,9 +17,8 @@ class AppColors {
   static const goldPremium = Color(
     0xFFE5B54F,
   ); // The gold used in the "Upgrade to Premium" screen
-  static const goldPremiumMuted = Color(
-    0xFF70592E,
-  ); // Muted gold for borders/icons
+  static const goldPremiumMuted = Color(0xFF70592E);
+  static const greyColor = Color(0xFF8E8E93); // Muted gold for borders/icons
 
   // Text & Gradients
   static const whiteColor = Color(0xFFFFFFFF);

@@ -16,9 +16,10 @@ abstract class EncryptionState with _$EncryptionState {
     EncryptionResult? encryptionResult,
     @Default(NoRoute()) AppRoute pendingRoute,
   }) = _EncryptionState;
-
+  bool get isEncrypting => status == PageStatus.loading;
   bool get isPasswordValid => password.isValid;
   bool get isFormValid => password.isValid && intensity > 0;
+  bool get canEncrypt => isFormValid && !isEncrypting;
 }
 
 class PasswordFormz extends FormzInput<String, ValidationError> {
