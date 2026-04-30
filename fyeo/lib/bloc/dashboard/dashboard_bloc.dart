@@ -98,14 +98,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async {
     // Set the route — GoRouter redirect will read this
     // and push /encrypt with the file as extra
-    emit(state.copyWith(pendingRoute: EncryptRoute(event.file)));
+    emit(state.copyWith(pendingRoute: EncryptRoute()));
   }
 
   Future<void> _onOpenRecentFile(
     _OpenRecentFile event,
     Emitter<DashboardState> emit,
   ) async {
-    emit(state.copyWith(pendingRoute: EncryptRoute(File(event.file.filePath))));
+    emit(state.copyWith(pendingRoute: EncryptRoute()));
   }
 
   Future<void> _onRouteConsumed(

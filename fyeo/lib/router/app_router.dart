@@ -1,14 +1,17 @@
-import 'dart:io';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fyeo/bloc/dashboard/dashboard_bloc.dart';
+import 'package:fyeo/bloc/dashboard/encryption/encryption_bloc.dart';
 import 'package:fyeo/presentation/screens/dashboard.dart';
 import 'package:fyeo/presentation/screens/encryption.dart';
+import 'package:fyeo/presentation/screens/encryption_success.dart';
 import 'package:fyeo/presentation/screens/recent_files.dart';
-import 'package:fyeo/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:async';
-import 'package:fyeo/bloc/dashboard/dashboard_bloc.dart';
+import 'package:fyeo/router/app_routes.dart';
+import 'package:fyeo/models/encryption_result.dart';
+
+import 'dart:io';
 
 class AppRouter {
   final DashboardBloc dashboardBloc;
@@ -17,7 +20,8 @@ class AppRouter {
 
   late final GoRouter router = GoRouter(
     initialLocation: '/dashboard',
-    refreshListenable: _BlocStream(dashboardBloc.stream),
+    // Listens to both blocs so redirect fires on either state change
+    refreshListenable: _MultiBlocStream([dashboardBloc.stream]),
     routes: [
       GoRoute(
         path: '/dashboard',
@@ -28,55 +32,64 @@ class AppRouter {
       ),
       GoRoute(
         path: '/encrypt',
-        builder: (context, state) =>
-            EncryptionScreen(file: state.extra as File),
+        builder: (context, state) {
+          final file = state.extra as File;
+          // EncryptionBloc is created here — router owns its lifetime
+          return BlocProvider(
+            create: (_) => EncryptionBloc(fileToEncrypt: file),
+            child: const EncryptionScreen(),
+          );
+        },
       ),
       GoRoute(
         path: '/recent-files',
         builder: (context, state) => const RecentFilesScreen(),
       ),
+      GoRoute(
+        path: '/success',
+        builder: (context, state) {
+          final result = state.extra as EncryptionResult;
+          return EncryptionSuccess(result: result);
+        },
+      ),
     ],
     redirect: (context, routerState) {
       final dashState = dashboardBloc.state;
+      final pending = dashState.pendingRoute;
 
-      // ── Read pendingRoute, navigate, then clear it ────────
-      switch (dashState.pendingRoute) {
-        case EncryptRoute(:final file):
-          // Tell Bloc the route was consumed BEFORE navigating
-          dashboardBloc.add(const DashboardEvent.routeConsumed());
-          // GoRouter handles the push — file goes as extra
-          // We return null here and use go() below
-          // because redirect can't pass extras
-          Future.microtask(() {
-            router.push('/encrypt', extra: file);
-          });
-          return null;
-
-        case RecentFilesRoute():
-          dashboardBloc.add(const DashboardEvent.routeConsumed());
-          return '/recent-files';
-
-        case NoRoute():
-          return null;
-
-        case DashboardRoute():
-          return '/dashboard'; // stay on current route
+      if (pending is EncryptRoute) {
+        dashboardBloc.add(const DashboardEvent.routeConsumed());
+        Future.microtask(
+          () => router.push('/encrypt', extra: dashState.fileToNavigate),
+        );
+        return null;
       }
+
+      if (pending is RecentFilesRoute) {
+        dashboardBloc.add(const DashboardEvent.routeConsumed());
+        return '/recent-files';
+      }
+
+      return null;
     },
   );
 }
 
-// Bridges Bloc stream to ChangeNotifier so GoRouter can listen
-class _BlocStream extends ChangeNotifier {
-  _BlocStream(Stream stream) {
-    _sub = stream.listen((_) => notifyListeners());
+// Merges multiple Bloc streams into one ChangeNotifier
+class _MultiBlocStream extends ChangeNotifier {
+  _MultiBlocStream(List<Stream> streams) {
+    for (final stream in streams) {
+      _subs.add(stream.listen((_) => notifyListeners()));
+    }
   }
 
-  late final StreamSubscription _sub;
+  final List<StreamSubscription> _subs = [];
 
   @override
   void dispose() {
-    _sub.cancel();
+    for (final sub in _subs) {
+      sub.cancel();
+    }
     super.dispose();
   }
 }

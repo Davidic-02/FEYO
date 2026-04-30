@@ -541,7 +541,7 @@ String toString() {
 mixin _$EncryptionState {
 
 // ── Screen lifecycle ──────────────────────────────────
- PageStatus get status; double get intensity; PasswordFormz get password; bool get isPasswordVisible; double get encryptionProgress; String? get errorMessage; EncryptionResult? get encryptionResult;
+ PageStatus get status; double get intensity; PasswordFormz get password; bool get isPasswordVisible; double get encryptionProgress; String? get errorMessage; EncryptionResult? get encryptionResult; AppRoute get pendingRoute;
 /// Create a copy of EncryptionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -552,16 +552,16 @@ $EncryptionStateCopyWith<EncryptionState> get copyWith => _$EncryptionStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EncryptionState&&(identical(other.status, status) || other.status == status)&&(identical(other.intensity, intensity) || other.intensity == intensity)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.encryptionProgress, encryptionProgress) || other.encryptionProgress == encryptionProgress)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EncryptionState&&(identical(other.status, status) || other.status == status)&&(identical(other.intensity, intensity) || other.intensity == intensity)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.encryptionProgress, encryptionProgress) || other.encryptionProgress == encryptionProgress)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,intensity,password,isPasswordVisible,encryptionProgress,errorMessage,encryptionResult);
+int get hashCode => Object.hash(runtimeType,status,intensity,password,isPasswordVisible,encryptionProgress,errorMessage,encryptionResult,pendingRoute);
 
 @override
 String toString() {
-  return 'EncryptionState(status: $status, intensity: $intensity, password: $password, isPasswordVisible: $isPasswordVisible, encryptionProgress: $encryptionProgress, errorMessage: $errorMessage, encryptionResult: $encryptionResult)';
+  return 'EncryptionState(status: $status, intensity: $intensity, password: $password, isPasswordVisible: $isPasswordVisible, encryptionProgress: $encryptionProgress, errorMessage: $errorMessage, encryptionResult: $encryptionResult, pendingRoute: $pendingRoute)';
 }
 
 
@@ -572,7 +572,7 @@ abstract mixin class $EncryptionStateCopyWith<$Res>  {
   factory $EncryptionStateCopyWith(EncryptionState value, $Res Function(EncryptionState) _then) = _$EncryptionStateCopyWithImpl;
 @useResult
 $Res call({
- PageStatus status, double intensity, PasswordFormz password, bool isPasswordVisible, double encryptionProgress, String? errorMessage, EncryptionResult? encryptionResult
+ PageStatus status, double intensity, PasswordFormz password, bool isPasswordVisible, double encryptionProgress, String? errorMessage, EncryptionResult? encryptionResult, AppRoute pendingRoute
 });
 
 
@@ -589,7 +589,7 @@ class _$EncryptionStateCopyWithImpl<$Res>
 
 /// Create a copy of EncryptionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? intensity = null,Object? password = null,Object? isPasswordVisible = null,Object? encryptionProgress = null,Object? errorMessage = freezed,Object? encryptionResult = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? intensity = null,Object? password = null,Object? isPasswordVisible = null,Object? encryptionProgress = null,Object? errorMessage = freezed,Object? encryptionResult = freezed,Object? pendingRoute = null,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as PageStatus,intensity: null == intensity ? _self.intensity : intensity // ignore: cast_nullable_to_non_nullable
@@ -598,7 +598,8 @@ as PasswordFormz,isPasswordVisible: null == isPasswordVisible ? _self.isPassword
 as bool,encryptionProgress: null == encryptionProgress ? _self.encryptionProgress : encryptionProgress // ignore: cast_nullable_to_non_nullable
 as double,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,encryptionResult: freezed == encryptionResult ? _self.encryptionResult : encryptionResult // ignore: cast_nullable_to_non_nullable
-as EncryptionResult?,
+as EncryptionResult?,pendingRoute: null == pendingRoute ? _self.pendingRoute : pendingRoute // ignore: cast_nullable_to_non_nullable
+as AppRoute,
   ));
 }
 /// Create a copy of EncryptionState
@@ -695,10 +696,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PageStatus status,  double intensity,  PasswordFormz password,  bool isPasswordVisible,  double encryptionProgress,  String? errorMessage,  EncryptionResult? encryptionResult)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PageStatus status,  double intensity,  PasswordFormz password,  bool isPasswordVisible,  double encryptionProgress,  String? errorMessage,  EncryptionResult? encryptionResult,  AppRoute pendingRoute)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EncryptionState() when $default != null:
-return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisible,_that.encryptionProgress,_that.errorMessage,_that.encryptionResult);case _:
+return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisible,_that.encryptionProgress,_that.errorMessage,_that.encryptionResult,_that.pendingRoute);case _:
   return orElse();
 
 }
@@ -716,10 +717,10 @@ return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PageStatus status,  double intensity,  PasswordFormz password,  bool isPasswordVisible,  double encryptionProgress,  String? errorMessage,  EncryptionResult? encryptionResult)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PageStatus status,  double intensity,  PasswordFormz password,  bool isPasswordVisible,  double encryptionProgress,  String? errorMessage,  EncryptionResult? encryptionResult,  AppRoute pendingRoute)  $default,) {final _that = this;
 switch (_that) {
 case _EncryptionState():
-return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisible,_that.encryptionProgress,_that.errorMessage,_that.encryptionResult);case _:
+return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisible,_that.encryptionProgress,_that.errorMessage,_that.encryptionResult,_that.pendingRoute);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -736,10 +737,10 @@ return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PageStatus status,  double intensity,  PasswordFormz password,  bool isPasswordVisible,  double encryptionProgress,  String? errorMessage,  EncryptionResult? encryptionResult)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PageStatus status,  double intensity,  PasswordFormz password,  bool isPasswordVisible,  double encryptionProgress,  String? errorMessage,  EncryptionResult? encryptionResult,  AppRoute pendingRoute)?  $default,) {final _that = this;
 switch (_that) {
 case _EncryptionState() when $default != null:
-return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisible,_that.encryptionProgress,_that.errorMessage,_that.encryptionResult);case _:
+return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisible,_that.encryptionProgress,_that.errorMessage,_that.encryptionResult,_that.pendingRoute);case _:
   return null;
 
 }
@@ -751,7 +752,7 @@ return $default(_that.status,_that.intensity,_that.password,_that.isPasswordVisi
 
 
 class _EncryptionState extends EncryptionState {
-  const _EncryptionState({this.status = PageStatus.initial, this.intensity = 0.5, this.password = const PasswordFormz.pure(), this.isPasswordVisible = false, this.encryptionProgress = 0.0, this.errorMessage, this.encryptionResult}): super._();
+  const _EncryptionState({this.status = PageStatus.initial, this.intensity = 0.5, this.password = const PasswordFormz.pure(), this.isPasswordVisible = false, this.encryptionProgress = 0.0, this.errorMessage, this.encryptionResult, this.pendingRoute = const NoRoute()}): super._();
   
 
 // ── Screen lifecycle ──────────────────────────────────
@@ -762,6 +763,7 @@ class _EncryptionState extends EncryptionState {
 @override@JsonKey() final  double encryptionProgress;
 @override final  String? errorMessage;
 @override final  EncryptionResult? encryptionResult;
+@override@JsonKey() final  AppRoute pendingRoute;
 
 /// Create a copy of EncryptionState
 /// with the given fields replaced by the non-null parameter values.
@@ -773,16 +775,16 @@ _$EncryptionStateCopyWith<_EncryptionState> get copyWith => __$EncryptionStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EncryptionState&&(identical(other.status, status) || other.status == status)&&(identical(other.intensity, intensity) || other.intensity == intensity)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.encryptionProgress, encryptionProgress) || other.encryptionProgress == encryptionProgress)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EncryptionState&&(identical(other.status, status) || other.status == status)&&(identical(other.intensity, intensity) || other.intensity == intensity)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.encryptionProgress, encryptionProgress) || other.encryptionProgress == encryptionProgress)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,intensity,password,isPasswordVisible,encryptionProgress,errorMessage,encryptionResult);
+int get hashCode => Object.hash(runtimeType,status,intensity,password,isPasswordVisible,encryptionProgress,errorMessage,encryptionResult,pendingRoute);
 
 @override
 String toString() {
-  return 'EncryptionState(status: $status, intensity: $intensity, password: $password, isPasswordVisible: $isPasswordVisible, encryptionProgress: $encryptionProgress, errorMessage: $errorMessage, encryptionResult: $encryptionResult)';
+  return 'EncryptionState(status: $status, intensity: $intensity, password: $password, isPasswordVisible: $isPasswordVisible, encryptionProgress: $encryptionProgress, errorMessage: $errorMessage, encryptionResult: $encryptionResult, pendingRoute: $pendingRoute)';
 }
 
 
@@ -793,7 +795,7 @@ abstract mixin class _$EncryptionStateCopyWith<$Res> implements $EncryptionState
   factory _$EncryptionStateCopyWith(_EncryptionState value, $Res Function(_EncryptionState) _then) = __$EncryptionStateCopyWithImpl;
 @override @useResult
 $Res call({
- PageStatus status, double intensity, PasswordFormz password, bool isPasswordVisible, double encryptionProgress, String? errorMessage, EncryptionResult? encryptionResult
+ PageStatus status, double intensity, PasswordFormz password, bool isPasswordVisible, double encryptionProgress, String? errorMessage, EncryptionResult? encryptionResult, AppRoute pendingRoute
 });
 
 
@@ -810,7 +812,7 @@ class __$EncryptionStateCopyWithImpl<$Res>
 
 /// Create a copy of EncryptionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? intensity = null,Object? password = null,Object? isPasswordVisible = null,Object? encryptionProgress = null,Object? errorMessage = freezed,Object? encryptionResult = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? intensity = null,Object? password = null,Object? isPasswordVisible = null,Object? encryptionProgress = null,Object? errorMessage = freezed,Object? encryptionResult = freezed,Object? pendingRoute = null,}) {
   return _then(_EncryptionState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as PageStatus,intensity: null == intensity ? _self.intensity : intensity // ignore: cast_nullable_to_non_nullable
@@ -819,7 +821,8 @@ as PasswordFormz,isPasswordVisible: null == isPasswordVisible ? _self.isPassword
 as bool,encryptionProgress: null == encryptionProgress ? _self.encryptionProgress : encryptionProgress // ignore: cast_nullable_to_non_nullable
 as double,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,encryptionResult: freezed == encryptionResult ? _self.encryptionResult : encryptionResult // ignore: cast_nullable_to_non_nullable
-as EncryptionResult?,
+as EncryptionResult?,pendingRoute: null == pendingRoute ? _self.pendingRoute : pendingRoute // ignore: cast_nullable_to_non_nullable
+as AppRoute,
   ));
 }
 

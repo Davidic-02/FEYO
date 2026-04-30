@@ -23,6 +23,7 @@ abstract class DashboardState with _$DashboardState {
     // ── Route state (router reads this, not widgets) ────────
     // NoRoute = stay here, anything else = navigate
     @Default(NoRoute()) AppRoute pendingRoute,
+    @Default(null) File? fileToNavigate,
   }) = _DashboardState;
 
   // ── Derived getters ────────────────────────────────────

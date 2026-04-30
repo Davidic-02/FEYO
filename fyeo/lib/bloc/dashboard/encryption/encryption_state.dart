@@ -14,6 +14,7 @@ abstract class EncryptionState with _$EncryptionState {
     String? errorMessage,
 
     EncryptionResult? encryptionResult,
+    @Default(NoRoute()) AppRoute pendingRoute,
   }) = _EncryptionState;
 
   bool get isPasswordValid => password.isValid;

@@ -1,6 +1,4 @@
-// lib/navigation/app_route.dart
-
-import 'dart:io';
+import 'package:fyeo/models/encryption_result.dart';
 
 sealed class AppRoute {
   const AppRoute();
@@ -11,15 +9,18 @@ class DashboardRoute extends AppRoute {
 }
 
 class EncryptRoute extends AppRoute {
-  final File file;
-  const EncryptRoute(this.file);
+  const EncryptRoute();
+}
+
+class SuccessRoute extends AppRoute {
+  final EncryptionResult result;
+  const SuccessRoute({required this.result});
 }
 
 class RecentFilesRoute extends AppRoute {
   const RecentFilesRoute();
 }
 
-// No route pending
 class NoRoute extends AppRoute {
   const NoRoute();
 }
