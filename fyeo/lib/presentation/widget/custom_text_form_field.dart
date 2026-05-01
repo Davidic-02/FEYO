@@ -7,7 +7,7 @@ import 'package:fyeo/constants/app_spacing.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     this.controller,
-    required this.focusNode,
+    this.focusNode,
     required this.hintText,
     required this.keyboardType,
     this.customFilled,
@@ -34,7 +34,7 @@ class CustomTextFormField extends StatelessWidget {
   });
 
   final TextEditingController? controller;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final String? title;
   final String hintText;
   final Color? fillColor;
