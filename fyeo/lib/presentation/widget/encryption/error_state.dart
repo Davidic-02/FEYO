@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fyeo/bloc/dashboard/encryption/encryption_bloc.dart';
+import 'package:fyeo/bloc/encryption/encryption_bloc.dart';
 import 'package:fyeo/constants/app_colors.dart';
 
 class EncryptionErrorStateWidget extends StatelessWidget {

@@ -1,59 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fyeo/bloc/encryption_success/encryption_success_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:fyeo/constants/app_colors.dart';
 import 'package:fyeo/models/encryption_result.dart';
 
-class EncryptionSuccess extends HookWidget {
-  final EncryptionResult result;
+import 'package:fyeo/router/app_routes.dart';
 
-  const EncryptionSuccess({super.key, required this.result});
+class EncryptionSuccess extends StatelessWidget {
+  final EncryptionResult result;
+  const EncryptionSuccess({Key? key, required this.result}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = useAnimationController(
-      duration: const Duration(milliseconds: 800),
-    );
-
-    useEffect(() {
-      controller.forward();
-      return null;
-    }, []);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Encryption Successful'),
-        centerTitle: true,
-      ),
-      body: FadeTransition(
-        opacity: controller,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.verified, size: 100, color: Colors.green),
-              const SizedBox(height: 20),
-
-              const Text(
-                'File Encrypted Successfully!',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 20),
-
-              Text('File: ${result.originalFileName}'),
-              Text('Size: ${result.originalSize} bytes'),
-              Text('Encrypted at: ${result.encryptedAt}'),
-
-              const SizedBox(height: 30),
-
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Done'),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return BlocProvider(
+      create: (_) => EncryptionSuccessBloc(result: result),
+      child: const _SuccessView(),
     );
   }
 }

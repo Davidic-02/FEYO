@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fyeo/bloc/dashboard/encryption/encryption_bloc.dart';
+import 'package:fyeo/bloc/encryption/encryption_bloc.dart';
 import 'package:fyeo/presentation/widget/button.dart';
 import 'package:fyeo/presentation/widget/custom_text_form_field.dart';
 import 'package:fyeo/presentation/widget/encryption/error_state.dart';
