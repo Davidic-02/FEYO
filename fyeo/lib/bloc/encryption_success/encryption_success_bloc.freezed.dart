@@ -369,12 +369,12 @@ $EncryptionSuccessStateCopyWith<EncryptionSuccessState> get copyWith => _$Encryp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EncryptionSuccessState&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult)&&const DeepCollectionEquality().equals(other.exportStatus, exportStatus)&&(identical(other.exportErrorMessage, exportErrorMessage) || other.exportErrorMessage == exportErrorMessage)&&const DeepCollectionEquality().equals(other.shareStatus, shareStatus)&&(identical(other.pathCopied, pathCopied) || other.pathCopied == pathCopied)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EncryptionSuccessState&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult)&&(identical(other.exportStatus, exportStatus) || other.exportStatus == exportStatus)&&(identical(other.exportErrorMessage, exportErrorMessage) || other.exportErrorMessage == exportErrorMessage)&&(identical(other.shareStatus, shareStatus) || other.shareStatus == shareStatus)&&(identical(other.pathCopied, pathCopied) || other.pathCopied == pathCopied)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,encryptionResult,const DeepCollectionEquality().hash(exportStatus),exportErrorMessage,const DeepCollectionEquality().hash(shareStatus),pathCopied,pendingRoute);
+int get hashCode => Object.hash(runtimeType,encryptionResult,exportStatus,exportErrorMessage,shareStatus,pathCopied,pendingRoute);
 
 @override
 String toString() {
@@ -406,12 +406,12 @@ class _$EncryptionSuccessStateCopyWithImpl<$Res>
 
 /// Create a copy of EncryptionSuccessState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? encryptionResult = null,Object? exportStatus = freezed,Object? exportErrorMessage = freezed,Object? shareStatus = freezed,Object? pathCopied = null,Object? pendingRoute = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? encryptionResult = null,Object? exportStatus = null,Object? exportErrorMessage = freezed,Object? shareStatus = null,Object? pathCopied = null,Object? pendingRoute = null,}) {
   return _then(_self.copyWith(
 encryptionResult: null == encryptionResult ? _self.encryptionResult : encryptionResult // ignore: cast_nullable_to_non_nullable
-as EncryptionResult,exportStatus: freezed == exportStatus ? _self.exportStatus : exportStatus // ignore: cast_nullable_to_non_nullable
+as EncryptionResult,exportStatus: null == exportStatus ? _self.exportStatus : exportStatus // ignore: cast_nullable_to_non_nullable
 as ExportStatus,exportErrorMessage: freezed == exportErrorMessage ? _self.exportErrorMessage : exportErrorMessage // ignore: cast_nullable_to_non_nullable
-as String?,shareStatus: freezed == shareStatus ? _self.shareStatus : shareStatus // ignore: cast_nullable_to_non_nullable
+as String?,shareStatus: null == shareStatus ? _self.shareStatus : shareStatus // ignore: cast_nullable_to_non_nullable
 as ShareStatus,pathCopied: null == pathCopied ? _self.pathCopied : pathCopied // ignore: cast_nullable_to_non_nullable
 as bool,pendingRoute: null == pendingRoute ? _self.pendingRoute : pendingRoute // ignore: cast_nullable_to_non_nullable
 as AppRoute,
@@ -584,12 +584,12 @@ _$EncryptionSuccessStateCopyWith<_EncryptionSuccessState> get copyWith => __$Enc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EncryptionSuccessState&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult)&&const DeepCollectionEquality().equals(other.exportStatus, exportStatus)&&(identical(other.exportErrorMessage, exportErrorMessage) || other.exportErrorMessage == exportErrorMessage)&&const DeepCollectionEquality().equals(other.shareStatus, shareStatus)&&(identical(other.pathCopied, pathCopied) || other.pathCopied == pathCopied)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EncryptionSuccessState&&(identical(other.encryptionResult, encryptionResult) || other.encryptionResult == encryptionResult)&&(identical(other.exportStatus, exportStatus) || other.exportStatus == exportStatus)&&(identical(other.exportErrorMessage, exportErrorMessage) || other.exportErrorMessage == exportErrorMessage)&&(identical(other.shareStatus, shareStatus) || other.shareStatus == shareStatus)&&(identical(other.pathCopied, pathCopied) || other.pathCopied == pathCopied)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,encryptionResult,const DeepCollectionEquality().hash(exportStatus),exportErrorMessage,const DeepCollectionEquality().hash(shareStatus),pathCopied,pendingRoute);
+int get hashCode => Object.hash(runtimeType,encryptionResult,exportStatus,exportErrorMessage,shareStatus,pathCopied,pendingRoute);
 
 @override
 String toString() {
@@ -621,12 +621,12 @@ class __$EncryptionSuccessStateCopyWithImpl<$Res>
 
 /// Create a copy of EncryptionSuccessState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? encryptionResult = null,Object? exportStatus = freezed,Object? exportErrorMessage = freezed,Object? shareStatus = freezed,Object? pathCopied = null,Object? pendingRoute = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? encryptionResult = null,Object? exportStatus = null,Object? exportErrorMessage = freezed,Object? shareStatus = null,Object? pathCopied = null,Object? pendingRoute = null,}) {
   return _then(_EncryptionSuccessState(
 encryptionResult: null == encryptionResult ? _self.encryptionResult : encryptionResult // ignore: cast_nullable_to_non_nullable
-as EncryptionResult,exportStatus: freezed == exportStatus ? _self.exportStatus : exportStatus // ignore: cast_nullable_to_non_nullable
+as EncryptionResult,exportStatus: null == exportStatus ? _self.exportStatus : exportStatus // ignore: cast_nullable_to_non_nullable
 as ExportStatus,exportErrorMessage: freezed == exportErrorMessage ? _self.exportErrorMessage : exportErrorMessage // ignore: cast_nullable_to_non_nullable
-as String?,shareStatus: freezed == shareStatus ? _self.shareStatus : shareStatus // ignore: cast_nullable_to_non_nullable
+as String?,shareStatus: null == shareStatus ? _self.shareStatus : shareStatus // ignore: cast_nullable_to_non_nullable
 as ShareStatus,pathCopied: null == pathCopied ? _self.pathCopied : pathCopied // ignore: cast_nullable_to_non_nullable
 as bool,pendingRoute: null == pendingRoute ? _self.pendingRoute : pendingRoute // ignore: cast_nullable_to_non_nullable
 as AppRoute,
