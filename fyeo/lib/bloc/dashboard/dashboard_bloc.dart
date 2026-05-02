@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:fyeo/enum/page_status.dart';
@@ -76,12 +77,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     Emitter<DashboardState> emit,
   ) async {
     try {
-      // TODO: final result = await FilePicker.platform.pickFiles(
-      //   type: FileType.image,
-      // );
-      // if (result != null && result.files.single.path != null) {
-      //   add(FileSelected(File(result.files.single.path!)));
-      // }
+      final result = await FilePicker.pickFiles(type: FileType.image);
+
+      if (result != null && result.files.single.path != null) {
+        add(DashboardEvent.fileSelected(File(result.files.single.path!)));
+      }
     } catch (e) {
       emit(
         state.copyWith(

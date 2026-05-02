@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fyeo/bloc/dashboard/dashboard_bloc.dart';
 import 'package:fyeo/bloc/encryption/encryption_bloc.dart';
 import 'package:fyeo/models/encryption_result.dart';
-import 'package:fyeo/presentation/screens/dashboard.dart';
+import 'package:fyeo/presentation/screens/tabs/dashboard.dart';
+import 'package:fyeo/presentation/screens/decryption.dart';
 import 'package:fyeo/presentation/screens/encryption.dart';
 import 'package:fyeo/presentation/screens/encryption_success.dart';
 import 'package:fyeo/presentation/screens/recent_files.dart';
@@ -108,6 +109,10 @@ class AppRouter {
           final result = state.extra as EncryptionResult;
           return EncryptionSuccess(result: result);
         },
+      ),
+      GoRoute(
+        path: '/decrypt',
+        builder: (context, state) => const DecryptionScreen(),
       ),
     ],
   );
