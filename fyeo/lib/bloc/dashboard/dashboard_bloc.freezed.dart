@@ -885,7 +885,7 @@ mixin _$DashboardState {
  String? get errorMessage;// ── Operation tracking ─────────────────────────────────
  Set<String> get deletingFileIds; Set<String> get sharingFileIds;// ── Route state (router reads this, not widgets) ────────
 // NoRoute = stay here, anything else = navigate
- AppRoute get pendingRoute;
+ AppRoute get pendingRoute; File? get fileToNavigate;
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -896,16 +896,16 @@ $DashboardStateCopyWith<DashboardState> get copyWith => _$DashboardStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.recentFiles, recentFiles)&&(identical(other.isCompressionEnabled, isCompressionEnabled) || other.isCompressionEnabled == isCompressionEnabled)&&(identical(other.securityStatus, securityStatus) || other.securityStatus == securityStatus)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&const DeepCollectionEquality().equals(other.deletingFileIds, deletingFileIds)&&const DeepCollectionEquality().equals(other.sharingFileIds, sharingFileIds)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.recentFiles, recentFiles)&&(identical(other.isCompressionEnabled, isCompressionEnabled) || other.isCompressionEnabled == isCompressionEnabled)&&(identical(other.securityStatus, securityStatus) || other.securityStatus == securityStatus)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&const DeepCollectionEquality().equals(other.deletingFileIds, deletingFileIds)&&const DeepCollectionEquality().equals(other.sharingFileIds, sharingFileIds)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute)&&(identical(other.fileToNavigate, fileToNavigate) || other.fileToNavigate == fileToNavigate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(recentFiles),isCompressionEnabled,securityStatus,errorMessage,const DeepCollectionEquality().hash(deletingFileIds),const DeepCollectionEquality().hash(sharingFileIds),pendingRoute);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(recentFiles),isCompressionEnabled,securityStatus,errorMessage,const DeepCollectionEquality().hash(deletingFileIds),const DeepCollectionEquality().hash(sharingFileIds),pendingRoute,fileToNavigate);
 
 @override
 String toString() {
-  return 'DashboardState(status: $status, recentFiles: $recentFiles, isCompressionEnabled: $isCompressionEnabled, securityStatus: $securityStatus, errorMessage: $errorMessage, deletingFileIds: $deletingFileIds, sharingFileIds: $sharingFileIds, pendingRoute: $pendingRoute)';
+  return 'DashboardState(status: $status, recentFiles: $recentFiles, isCompressionEnabled: $isCompressionEnabled, securityStatus: $securityStatus, errorMessage: $errorMessage, deletingFileIds: $deletingFileIds, sharingFileIds: $sharingFileIds, pendingRoute: $pendingRoute, fileToNavigate: $fileToNavigate)';
 }
 
 
@@ -916,7 +916,7 @@ abstract mixin class $DashboardStateCopyWith<$Res>  {
   factory $DashboardStateCopyWith(DashboardState value, $Res Function(DashboardState) _then) = _$DashboardStateCopyWithImpl;
 @useResult
 $Res call({
- PageStatus status, List<EncryptedFile> recentFiles, bool isCompressionEnabled, String securityStatus, String? errorMessage, Set<String> deletingFileIds, Set<String> sharingFileIds, AppRoute pendingRoute
+ PageStatus status, List<EncryptedFile> recentFiles, bool isCompressionEnabled, String securityStatus, String? errorMessage, Set<String> deletingFileIds, Set<String> sharingFileIds, AppRoute pendingRoute, File? fileToNavigate
 });
 
 
@@ -933,7 +933,7 @@ class _$DashboardStateCopyWithImpl<$Res>
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? recentFiles = null,Object? isCompressionEnabled = null,Object? securityStatus = null,Object? errorMessage = freezed,Object? deletingFileIds = null,Object? sharingFileIds = null,Object? pendingRoute = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? recentFiles = null,Object? isCompressionEnabled = null,Object? securityStatus = null,Object? errorMessage = freezed,Object? deletingFileIds = null,Object? sharingFileIds = null,Object? pendingRoute = null,Object? fileToNavigate = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as PageStatus,recentFiles: null == recentFiles ? _self.recentFiles : recentFiles // ignore: cast_nullable_to_non_nullable
@@ -943,7 +943,8 @@ as String,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMess
 as String?,deletingFileIds: null == deletingFileIds ? _self.deletingFileIds : deletingFileIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,sharingFileIds: null == sharingFileIds ? _self.sharingFileIds : sharingFileIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,pendingRoute: null == pendingRoute ? _self.pendingRoute : pendingRoute // ignore: cast_nullable_to_non_nullable
-as AppRoute,
+as AppRoute,fileToNavigate: freezed == fileToNavigate ? _self.fileToNavigate : fileToNavigate // ignore: cast_nullable_to_non_nullable
+as File?,
   ));
 }
 
@@ -1028,10 +1029,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PageStatus status,  List<EncryptedFile> recentFiles,  bool isCompressionEnabled,  String securityStatus,  String? errorMessage,  Set<String> deletingFileIds,  Set<String> sharingFileIds,  AppRoute pendingRoute)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PageStatus status,  List<EncryptedFile> recentFiles,  bool isCompressionEnabled,  String securityStatus,  String? errorMessage,  Set<String> deletingFileIds,  Set<String> sharingFileIds,  AppRoute pendingRoute,  File? fileToNavigate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DashboardState() when $default != null:
-return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.securityStatus,_that.errorMessage,_that.deletingFileIds,_that.sharingFileIds,_that.pendingRoute);case _:
+return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.securityStatus,_that.errorMessage,_that.deletingFileIds,_that.sharingFileIds,_that.pendingRoute,_that.fileToNavigate);case _:
   return orElse();
 
 }
@@ -1049,10 +1050,10 @@ return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PageStatus status,  List<EncryptedFile> recentFiles,  bool isCompressionEnabled,  String securityStatus,  String? errorMessage,  Set<String> deletingFileIds,  Set<String> sharingFileIds,  AppRoute pendingRoute)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PageStatus status,  List<EncryptedFile> recentFiles,  bool isCompressionEnabled,  String securityStatus,  String? errorMessage,  Set<String> deletingFileIds,  Set<String> sharingFileIds,  AppRoute pendingRoute,  File? fileToNavigate)  $default,) {final _that = this;
 switch (_that) {
 case _DashboardState():
-return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.securityStatus,_that.errorMessage,_that.deletingFileIds,_that.sharingFileIds,_that.pendingRoute);case _:
+return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.securityStatus,_that.errorMessage,_that.deletingFileIds,_that.sharingFileIds,_that.pendingRoute,_that.fileToNavigate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1069,10 +1070,10 @@ return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PageStatus status,  List<EncryptedFile> recentFiles,  bool isCompressionEnabled,  String securityStatus,  String? errorMessage,  Set<String> deletingFileIds,  Set<String> sharingFileIds,  AppRoute pendingRoute)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PageStatus status,  List<EncryptedFile> recentFiles,  bool isCompressionEnabled,  String securityStatus,  String? errorMessage,  Set<String> deletingFileIds,  Set<String> sharingFileIds,  AppRoute pendingRoute,  File? fileToNavigate)?  $default,) {final _that = this;
 switch (_that) {
 case _DashboardState() when $default != null:
-return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.securityStatus,_that.errorMessage,_that.deletingFileIds,_that.sharingFileIds,_that.pendingRoute);case _:
+return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.securityStatus,_that.errorMessage,_that.deletingFileIds,_that.sharingFileIds,_that.pendingRoute,_that.fileToNavigate);case _:
   return null;
 
 }
@@ -1084,7 +1085,7 @@ return $default(_that.status,_that.recentFiles,_that.isCompressionEnabled,_that.
 
 
 class _DashboardState extends DashboardState {
-  const _DashboardState({this.status = PageStatus.initial, final  List<EncryptedFile> recentFiles = const [], this.isCompressionEnabled = true, this.securityStatus = 'Engaged', this.errorMessage, final  Set<String> deletingFileIds = const <String>{}, final  Set<String> sharingFileIds = const <String>{}, this.pendingRoute = const NoRoute()}): _recentFiles = recentFiles,_deletingFileIds = deletingFileIds,_sharingFileIds = sharingFileIds,super._();
+  const _DashboardState({this.status = PageStatus.initial, final  List<EncryptedFile> recentFiles = const [], this.isCompressionEnabled = true, this.securityStatus = 'Engaged', this.errorMessage, final  Set<String> deletingFileIds = const <String>{}, final  Set<String> sharingFileIds = const <String>{}, this.pendingRoute = const NoRoute(), this.fileToNavigate = null}): _recentFiles = recentFiles,_deletingFileIds = deletingFileIds,_sharingFileIds = sharingFileIds,super._();
   
 
 // ── Screen lifecycle ──────────────────────────────────
@@ -1121,6 +1122,7 @@ class _DashboardState extends DashboardState {
 // ── Route state (router reads this, not widgets) ────────
 // NoRoute = stay here, anything else = navigate
 @override@JsonKey() final  AppRoute pendingRoute;
+@override@JsonKey() final  File? fileToNavigate;
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
@@ -1132,16 +1134,16 @@ _$DashboardStateCopyWith<_DashboardState> get copyWith => __$DashboardStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._recentFiles, _recentFiles)&&(identical(other.isCompressionEnabled, isCompressionEnabled) || other.isCompressionEnabled == isCompressionEnabled)&&(identical(other.securityStatus, securityStatus) || other.securityStatus == securityStatus)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&const DeepCollectionEquality().equals(other._deletingFileIds, _deletingFileIds)&&const DeepCollectionEquality().equals(other._sharingFileIds, _sharingFileIds)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._recentFiles, _recentFiles)&&(identical(other.isCompressionEnabled, isCompressionEnabled) || other.isCompressionEnabled == isCompressionEnabled)&&(identical(other.securityStatus, securityStatus) || other.securityStatus == securityStatus)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&const DeepCollectionEquality().equals(other._deletingFileIds, _deletingFileIds)&&const DeepCollectionEquality().equals(other._sharingFileIds, _sharingFileIds)&&(identical(other.pendingRoute, pendingRoute) || other.pendingRoute == pendingRoute)&&(identical(other.fileToNavigate, fileToNavigate) || other.fileToNavigate == fileToNavigate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_recentFiles),isCompressionEnabled,securityStatus,errorMessage,const DeepCollectionEquality().hash(_deletingFileIds),const DeepCollectionEquality().hash(_sharingFileIds),pendingRoute);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_recentFiles),isCompressionEnabled,securityStatus,errorMessage,const DeepCollectionEquality().hash(_deletingFileIds),const DeepCollectionEquality().hash(_sharingFileIds),pendingRoute,fileToNavigate);
 
 @override
 String toString() {
-  return 'DashboardState(status: $status, recentFiles: $recentFiles, isCompressionEnabled: $isCompressionEnabled, securityStatus: $securityStatus, errorMessage: $errorMessage, deletingFileIds: $deletingFileIds, sharingFileIds: $sharingFileIds, pendingRoute: $pendingRoute)';
+  return 'DashboardState(status: $status, recentFiles: $recentFiles, isCompressionEnabled: $isCompressionEnabled, securityStatus: $securityStatus, errorMessage: $errorMessage, deletingFileIds: $deletingFileIds, sharingFileIds: $sharingFileIds, pendingRoute: $pendingRoute, fileToNavigate: $fileToNavigate)';
 }
 
 
@@ -1152,7 +1154,7 @@ abstract mixin class _$DashboardStateCopyWith<$Res> implements $DashboardStateCo
   factory _$DashboardStateCopyWith(_DashboardState value, $Res Function(_DashboardState) _then) = __$DashboardStateCopyWithImpl;
 @override @useResult
 $Res call({
- PageStatus status, List<EncryptedFile> recentFiles, bool isCompressionEnabled, String securityStatus, String? errorMessage, Set<String> deletingFileIds, Set<String> sharingFileIds, AppRoute pendingRoute
+ PageStatus status, List<EncryptedFile> recentFiles, bool isCompressionEnabled, String securityStatus, String? errorMessage, Set<String> deletingFileIds, Set<String> sharingFileIds, AppRoute pendingRoute, File? fileToNavigate
 });
 
 
@@ -1169,7 +1171,7 @@ class __$DashboardStateCopyWithImpl<$Res>
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? recentFiles = null,Object? isCompressionEnabled = null,Object? securityStatus = null,Object? errorMessage = freezed,Object? deletingFileIds = null,Object? sharingFileIds = null,Object? pendingRoute = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? recentFiles = null,Object? isCompressionEnabled = null,Object? securityStatus = null,Object? errorMessage = freezed,Object? deletingFileIds = null,Object? sharingFileIds = null,Object? pendingRoute = null,Object? fileToNavigate = freezed,}) {
   return _then(_DashboardState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as PageStatus,recentFiles: null == recentFiles ? _self._recentFiles : recentFiles // ignore: cast_nullable_to_non_nullable
@@ -1179,7 +1181,8 @@ as String,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMess
 as String?,deletingFileIds: null == deletingFileIds ? _self._deletingFileIds : deletingFileIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,sharingFileIds: null == sharingFileIds ? _self._sharingFileIds : sharingFileIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,pendingRoute: null == pendingRoute ? _self.pendingRoute : pendingRoute // ignore: cast_nullable_to_non_nullable
-as AppRoute,
+as AppRoute,fileToNavigate: freezed == fileToNavigate ? _self.fileToNavigate : fileToNavigate // ignore: cast_nullable_to_non_nullable
+as File?,
   ));
 }
 
